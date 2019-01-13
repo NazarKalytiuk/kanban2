@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Todo } from 'src/app/core/model/todo';
 import { TodoService } from 'src/app/core/services/todo.service';
+import { TodoEvent } from '../todo-event';
 
 @Component({
   selector: 'app-todo-app',
@@ -8,41 +9,17 @@ import { TodoService } from 'src/app/core/services/todo.service';
   styleUrls: ['./todo-app.component.scss']
 })
 export class TodoAppComponent implements OnInit {
+  constructor(public todoS: TodoService) { }
 
-  todos: Todo[] = [
-    {
-      title: 'title1',
-      checked: true,
-      id: 1
-    },
-    {
-      title: 'title2',
-      checked: false,
-      id: 2
-    }
-  ];
-
-  constructor(private todoS: TodoService) { }
-
-  ngOnInit() {
-    this.todoS.getAll().subscribe(todos => {
-      this.todos = todos;
-    });
-  }
+  ngOnInit() { }
 
   onTodoAdded(todo: Todo) {
-    console.log(todo);
-    this.todos.push(todo);
-    this.todoS.add(todo).subscribe(t => {
-      console.log(t);
-    });
+    this.todoS.add(todo).subscribe(null);
   }
 
-  onTodosChanged(event: {event: string, todo: Todo}) {
-    if (event.event === 'checked') {
-      const index = this.todos.findIndex(e => e.id === event.todo.id);
-      this.todos[index] = event.todo;
-      this.todoS.edit(this.todos[index]);
+  onTodoChanged(event: TodoEvent) {
+    if (event.event === 'Edited') {
+      this.todoS.edit(event.todo).subscribe(null);
     }
   }
 

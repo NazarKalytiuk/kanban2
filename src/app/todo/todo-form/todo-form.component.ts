@@ -9,18 +9,18 @@ import { Todo } from 'src/app/core/model/todo';
 export class TodoFormComponent implements OnInit {
 
   title: string;
+
   @Output() todoAdded = new EventEmitter<Todo>();
 
   constructor() { }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
   onSubmit() {
     const todo: Todo = {
       title: this.title,
       checked: false,
-      id: new Date().valueOf()
+      id: new Date().valueOf(),
     };
     this.title = null;
     this.todoAdded.emit(todo);

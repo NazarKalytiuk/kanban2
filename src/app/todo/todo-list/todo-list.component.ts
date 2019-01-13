@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Todo } from 'src/app/core/model/todo';
+import { TodoEvent } from '../todo-event';
 
 @Component({
   selector: 'app-todo-list',
@@ -10,15 +11,13 @@ export class TodoListComponent implements OnInit {
 
   @Input() todos: Todo[];
 
-  @Output() changed = new EventEmitter<{event: string, todo: Todo}>();
+  @Output() changed = new EventEmitter<TodoEvent>();
 
   constructor() { }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
-  onTodoChanged(event: {event: string, todo: Todo}) {
-    console.log(event);
+  onTodoChanged(event: TodoEvent) {
     this.changed.emit(event);
   }
 }
