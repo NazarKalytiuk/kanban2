@@ -19,9 +19,10 @@ export class TodoFormComponent implements OnInit {
   onSubmit() {
     const todo: Todo = {
       title: this.title,
-      checked: false
+      checked: false,
+      id: new Date().valueOf()
     };
-    this.title = '';
+    this.title = null;
     this.todoAdded.emit(todo);
   }
 

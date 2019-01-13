@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Todo } from 'src/app/core/model/todo';
 
 @Component({
@@ -8,11 +8,17 @@ import { Todo } from 'src/app/core/model/todo';
 })
 export class TodoComponent implements OnInit {
 
+  @Output() changed = new EventEmitter<{event: string, todo: Todo}>();
   @Input() todo: Todo;
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  onChecked(event: Event & { target: { checked: boolean } }) {
+    this.todo.checked = event.target.checked;
+    this.changed.emit({event: 'checked', todo: this.todo});
   }
 
 }

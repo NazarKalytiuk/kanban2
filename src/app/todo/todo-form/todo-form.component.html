@@ -1,4 +1,4 @@
 <form (ngSubmit)="onSubmit()">
-  <input type="text" name="title" [(ngModel)]="title" placeholder="Add todo...">
-  <button type="submit">Add</button>
+  <input type="text" name="title" autocomplete="off" [(ngModel)]="title" placeholder="Add todo...">
+  <button type="submit" [disabled]="!title">Add</button>
 </form>

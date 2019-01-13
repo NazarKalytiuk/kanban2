@@ -1,2 +1,2 @@
 <p> {{ todo?.title }} </p>
-<input type="checkbox" [checked]="todo.checked">
+<input type="checkbox" [checked]="todo?.checked" (change)="onChecked($event)">

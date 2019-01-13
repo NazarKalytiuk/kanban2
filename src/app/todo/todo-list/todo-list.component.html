@@ -1,5 +1,5 @@
 <ul>
   <li *ngFor="let todo of todos">
-    <app-todo [todo]="todo"></app-todo>
+    <app-todo [todo]="todo" (changed)="onTodoChanged($event)"></app-todo>
   </li>
 </ul>
