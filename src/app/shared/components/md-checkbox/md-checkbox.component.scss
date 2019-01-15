@@ -1,0 +1,51 @@
+
+:host {
+  position: relative;
+  cursor: pointer;
+  width: var(--size);
+  height: var(--size);
+  margin-right: calc(var(--size)) / .4rem;
+  background: inherit;
+}
+:host:before {
+  content: "";
+  position: absolute;
+  width: var(--size);
+  height: var(--size);
+  background: inherit;
+  cursor: pointer;
+}
+:host:after {
+  content: "";
+  transition: .4s ease-in-out;
+  position: absolute;
+  z-index: 1;
+  width: calc(var(--size) - .2rem);
+  height: calc(var(--size) - .2rem);
+  border: .1rem solid rgba(200, 200, 200, .3);
+}
+:host:checked:after {
+  transform: rotate(-45deg);
+  height: calc(var(--size) / 2.4);
+  border-color: #43A047;
+  border-top-color: transparent;
+  border-right-color: transparent;
+}
+
+:host[animate]:checked:after {
+  transform: rotate(-45deg);
+  height: calc(var(--size) / 2.4);
+  border-color: transparent;
+  border-right-color: transparent;
+  animation: .4s rippling .4s ease;
+  animation-fill-mode: forwards;
+}
+@keyframes rippling {
+  50% {
+    border-left-color: #43A047;
+  }
+  100% {
+    border-bottom-color: #43A047;
+    border-left-color: #43A047;
+  }
+}
