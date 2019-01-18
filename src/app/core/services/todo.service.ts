@@ -3,26 +3,30 @@ import { LocalStorageRepositoryService } from './repositories/local-storage-repo
 import { StorageRepository } from './repositories/storage-repository';
 import { of, Observable, BehaviorSubject } from 'rxjs';
 import { Todo } from '../model/todo';
-import { filter } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
+import { IndexeddbRepositoryService } from './repositories/indexeddb-repository.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TodoService {
 
-  private storage: StorageRepository;
-  private todos$: BehaviorSubject<Todo[]> = new BehaviorSubject([]);
+  private storage: StorageRepository<Todo>;
+  private todos$: BehaviorSubject<Todo[]> = new BehaviorSubject(null);
 
-  constructor(storage: LocalStorageRepositoryService) {
+  constructor(storage: IndexeddbRepositoryService) {
     this.storage = storage;
   }
   /**
    * Get all todos
    */
   getAll(): Observable<Todo[]> {
-    if (this.todos$.value.length < 1) {
-      const todos = this.storage.getAll();
-      this.todos$.next(todos);
+    if (!this.todos$.value) {
+      const all$ = this.storage.getAll().subscribe(c => {
+        console.log(c);
+        this.todos$.next(c);
+        all$.unsubscribe();
+      });
     }
     return this.todos$.asObservable();
   }
@@ -32,10 +36,11 @@ export class TodoService {
    * @param todo todo
    */
   add(todo: Todo): Observable<Todo> {
-    const added = this.storage.add(todo);
-    const todos = [...this.todos$.value, added];
-    this.todos$.next(todos);
-    return of(added);
+    return this.storage.add(todo).pipe(
+      tap(e => {
+        const todos = [...this.todos$.value, e];
+        this.todos$.next(todos);
+      }));
   }
 
   /**
@@ -43,21 +48,21 @@ export class TodoService {
    * @param todo todo
    */
   edit(todo: Todo): Observable<Todo> {
-    const edited = this.storage.edit(todo);
-    const index = this.todos$.value.findIndex(e => e.id === todo.id);
-    this.todos$.value[index] = todo;
-    this.todos$.next(this.todos$.value);
-    return of(edited);
+    return this.storage.edit(todo).pipe(tap(s => {
+      const index = this.todos$.value.findIndex(e => e.id === todo.id);
+      this.todos$.value[index] = todo;
+      this.todos$.next(this.todos$.value);
+    }));
   }
   /**
    * Remove todo
    * @param todo todo
    */
   remove(todo: Todo): Observable<void> {
-    const todos = this.todos$.value.filter(e => e.id !== todo.id);
-    this.todos$.next(todos);
-    const removed = this.storage.remove(todo);
-    return of(removed);
+    return this.storage.remove(todo).pipe(tap(s => {
+      const todos = this.todos$.value.filter(e => e.id !== todo.id);
+      this.todos$.next(todos);
+    }));
   }
 
   /**
@@ -65,6 +70,10 @@ export class TodoService {
    * @param id todo`s id
    */
   get(id: number): Observable<Todo> {
-    return of(this.todos$.value.find(e => e.id === id));
+    if (this.todos$.value.length > 0) {
+      return of(this.todos$.value.find(e => e.id === id));
+    } else {
+      return this.storage.get(id);
+    }
   }
 }

@@ -11,7 +11,8 @@ import { TodoEvent } from '../todo-event';
 export class TodoAppComponent implements OnInit {
   constructor(public todoS: TodoService) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+   }
 
   onTodoAdded(todo: Todo) {
     this.todoS.add(todo).subscribe(null);

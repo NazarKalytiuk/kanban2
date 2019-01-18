@@ -1,9 +1,10 @@
 import { Todo } from '../../model/todo';
+import { Observable } from 'rxjs';
 
-export interface StorageRepository {
-  get(id: number): Todo;
-  getAll(): Todo[];
-  add(todo: Todo): Todo;
-  remove(todo: Todo): void;
-  edit(todo: Todo): Todo;
+export interface StorageRepository<T> {
+  get(id: number): Observable<T>;
+  getAll(): Observable<T[]>;
+  add(todo: T): Observable<T>;
+  remove(todo: T): Observable<void>;
+  edit(todo: T): Observable<T>;
 }
