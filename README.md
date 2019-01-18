@@ -4,6 +4,10 @@ Pet project
 
 Features
 
+- [x] Checkbox component
+- [x] LocalStorage store
+- [x] Indexeddb store
+- [ ] Firebase store
 - [ ] OnPush change detection
 - [ ] NGXS or NGRX
 - [ ] Drag & Drop
