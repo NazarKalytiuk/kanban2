@@ -20,7 +20,6 @@ export class TodoFormComponent implements OnInit {
     const todo: Todo = {
       title: this.title,
       checked: false,
-      id: new Date().valueOf(),
     };
     this.title = null;
     this.todoAdded.emit(todo);

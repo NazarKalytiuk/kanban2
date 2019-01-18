@@ -58,6 +58,7 @@ export class LocalStorageRepositoryService implements StorageRepository<Todo> {
    */
   add(todo: Todo): Observable<Todo> {
     const todos = this.getAllSync();
+    todo.id = new Date().valueOf(); // generate an id
     todos.push(todo);
     this.save(todos);
 

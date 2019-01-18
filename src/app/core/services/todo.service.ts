@@ -17,6 +17,7 @@ export class TodoService {
   constructor(storage: IndexeddbRepositoryService) {
     this.storage = storage;
   }
+
   /**
    * Get all todos
    */
