@@ -6,4 +6,18 @@
   justify-content: space-between;
   background: white;
 }
+.divider {
+  display: flex;
+  flex: 1 1 auto
+}
 
+.remove {
+  margin-left: 1rem;
+  border: none;
+  outline: none;
+  background: transparent;
+  cursor: pointer;
+  & svg {
+    fill: #d50000;
+  }
+}

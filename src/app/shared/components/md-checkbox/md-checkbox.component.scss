@@ -27,7 +27,7 @@
 :host:checked:after {
   transform: rotate(-45deg);
   height: calc(var(--size) / 2.4);
-  border-color: #43A047;
+  border-color: #00C853;
   border-top-color: transparent;
   border-right-color: transparent;
 }
@@ -42,10 +42,10 @@
 }
 @keyframes rippling {
   50% {
-    border-left-color: #43A047;
+    border-left-color: #C8E6C9;
   }
   100% {
-    border-bottom-color: #43A047;
-    border-left-color: #43A047;
+    border-bottom-color: #4CAF50;
+    border-left-color: #4CAF50;
   }
 }

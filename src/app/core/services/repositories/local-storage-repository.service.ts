@@ -48,7 +48,7 @@ export class LocalStorageRepositoryService implements StorageRepository<Todo> {
    * Get all todos from localStorage
    */
   getAll(): Observable<Todo[]> {
-    const todos = JSON.parse(localStorage.getItem('todos')) as Todo[] || [];
+    const todos = JSON.parse(localStorage.getItem('todos')) || [];
     return of(todos);
   }
 

@@ -7,11 +7,11 @@ Features
 - [x] Checkbox component
 - [x] LocalStorage store
 - [x] Indexeddb store
-- [ ] Firebase store
 - [ ] OnPush change detection
 - [ ] NGXS or NGRX
-- [ ] Drag & Drop
+- [ ] Firebase store
 - [ ] Jasmine unit tests
 - [ ] Cypress e2e tests
-- [ ] Custom columns
 - [ ] SSR
+- [ ] Custom columns
+- [ ] Drag & Drop

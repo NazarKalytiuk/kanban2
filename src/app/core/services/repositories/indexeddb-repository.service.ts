@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { StorageRepository } from './storage-repository';
 import { Todo } from '../../model/todo';
-import { Observable, BehaviorSubject, of, ReplaySubject, Observer } from 'rxjs';
-import { flatMap, filter } from 'rxjs/operators';
+import { Observable, BehaviorSubject, of, ReplaySubject, Observer, AsyncSubject } from 'rxjs';
+import { flatMap, filter, switchMap } from 'rxjs/operators';
 
 /**
  * Add indexeddb browser prefixes to Window interface
@@ -21,7 +21,7 @@ declare global {
 export class IndexeddbRepositoryService implements StorageRepository<Todo> {
 
   private indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
-  private db$: ReplaySubject<IDBDatabase> = new ReplaySubject(); // get db as subject when db is ready
+  private db$: AsyncSubject<IDBDatabase> = new AsyncSubject(); // get db as subject when db is ready
   private storeName = 'todos';
 
   constructor() {
@@ -31,6 +31,7 @@ export class IndexeddbRepositoryService implements StorageRepository<Todo> {
 
     request.onsuccess = (e) => {
       this.db$.next(request.result); // get initialized db
+      this.db$.complete();
     };
 
     request.onupgradeneeded = (e) => {
