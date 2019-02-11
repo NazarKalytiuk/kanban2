@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
+import { Observable, AsyncSubject } from 'rxjs';
+import { flatMap, } from 'rxjs/operators';
+
+import { Todo } from '@core/model';
 import { StorageRepository } from './storage-repository';
-import { Todo } from '../../model/todo';
-import { Observable, BehaviorSubject, of, ReplaySubject, Observer, AsyncSubject } from 'rxjs';
-import { flatMap, filter, switchMap } from 'rxjs/operators';
 
 /**
  * Add indexeddb browser prefixes to Window interface

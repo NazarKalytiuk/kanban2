@@ -1,10 +1,12 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy } from '@angular/core';
-import { Todo } from 'src/app/core/model/todo';
-import { TodoService } from 'src/app/core/services/todo.service';
-import { TodoEvent } from '../todo-event';
-import { List } from 'immutable';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+
+import { List } from 'immutable';
+
+import { Todo } from '@core/model';
+import { TodoService } from '@core/services';
+import { TodoEvent } from '../todo-event';
 
 @Component({
   selector: 'app-todo-app',
@@ -16,6 +18,7 @@ export class TodoAppComponent implements OnInit, OnDestroy {
 
   todos: List<Todo> = List();
   destroyed$: Subject<boolean> = new Subject();
+
   constructor(public todoS: TodoService, private cd: ChangeDetectorRef) { }
 
   ngOnInit() {

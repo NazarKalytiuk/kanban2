@@ -1,5 +1,6 @@
-import { Component, OnInit, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
-import { Todo } from 'src/app/core/model/todo';
+import { Component, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
+
+import { Todo } from '@core/model';
 
 @Component({
   selector: 'app-todo-form',
@@ -7,15 +8,11 @@ import { Todo } from 'src/app/core/model/todo';
   styleUrls: ['./todo-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TodoFormComponent implements OnInit {
+export class TodoFormComponent {
 
   title: string;
 
   @Output() todoAdded = new EventEmitter<Todo>();
-
-  constructor() { }
-
-  ngOnInit() { }
 
   onSubmit() {
     const todo: Todo = {

@@ -1,7 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
+    "baseUrl": "src",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
@@ -14,6 +14,14 @@
     "typeRoots": [
       "node_modules/@types"
     ],
+    "paths": {
+      "@core": ["app/core/index"],
+      "@core/model": ["app/core/model/index"],
+      "@core/services": ["app/core/services/index"],
+      "@shared": ["app/shared/index"],
+      "@todo": ["app/todo/index"],
+      "@todo/*": ["app/todo/*"],
+    },
     "lib": [
       "es2018",
       "dom"

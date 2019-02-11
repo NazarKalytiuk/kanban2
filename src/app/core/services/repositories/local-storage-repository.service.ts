@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { StorageRepository } from './storage-repository';
-import { Todo } from '../../model/todo';
 import { of, Observable } from 'rxjs';
+
+import { Todo } from '@core/model';
+import { StorageRepository } from './storage-repository';
 
 @Injectable({
   providedIn: 'root'

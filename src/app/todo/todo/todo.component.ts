@@ -1,6 +1,7 @@
-import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
-import { Todo } from 'src/app/core/model/todo';
-import { TodoEvent } from '../todo-event';
+import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
+
+import { TodoEvent } from '../';
+import { Todo } from '@core/model';
 
 @Component({
   selector: 'app-todo',
@@ -8,14 +9,10 @@ import { TodoEvent } from '../todo-event';
   styleUrls: ['./todo.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TodoComponent implements OnInit {
+export class TodoComponent {
 
   @Output() changed = new EventEmitter<TodoEvent>();
   @Input() todo: Todo;
-
-  constructor() { }
-
-  ngOnInit() { }
 
   onChecked(event: Event & { target: { checked: boolean } }) {
     this.todo.checked = event.target.checked;
