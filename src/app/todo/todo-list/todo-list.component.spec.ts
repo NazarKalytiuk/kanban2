@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TodoListComponent } from './todo-list.component';
+import { TodoComponent, TodoListComponent, TodoEvent } from '@todo';
+import { SharedModule } from '@shared';
 
 describe('TodoListComponent', () => {
   let component: TodoListComponent;
@@ -8,7 +9,8 @@ describe('TodoListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TodoListComponent ]
+      imports: [SharedModule],
+      declarations: [TodoListComponent, TodoComponent]
     })
     .compileComponents();
   }));
@@ -21,5 +23,15 @@ describe('TodoListComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should send output on todo change', () => {
+    // Arrange
+    const spy = spyOn(component.changed, 'emit');
+    const todo: TodoEvent = {event: 'Added', todo: {title: 'title', checked: false}};
+    // Act
+    component.onTodoChanged(todo);
+    // Assert
+    expect(spy).toHaveBeenCalledWith(todo);
   });
 });

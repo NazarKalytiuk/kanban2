@@ -5,8 +5,6 @@ import { List } from 'immutable';
 import { Todo } from '@core/model';
 import { TodoEvent } from '../';
 
-
-
 @Component({
   selector: 'app-todo-list',
   templateUrl: './todo-list.component.html',

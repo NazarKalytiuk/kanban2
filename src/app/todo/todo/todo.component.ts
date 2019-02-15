@@ -14,8 +14,8 @@ export class TodoComponent {
   @Output() changed = new EventEmitter<TodoEvent>();
   @Input() todo: Todo;
 
-  onChecked(event: Event & { target: { checked: boolean } }) {
-    this.todo.checked = event.target.checked;
+  onChecked(event: boolean) {
+    this.todo.checked = event;
     this.changed.emit({event: 'Edited', todo: this.todo});
   }
 
