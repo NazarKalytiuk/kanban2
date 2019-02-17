@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, AsyncSubject } from 'rxjs';
+import { Observable, AsyncSubject, of } from 'rxjs';
 import { flatMap, } from 'rxjs/operators';
 
 import { Todo } from '@core/model';
@@ -31,6 +31,9 @@ export class IndexeddbRepositoryService implements StorageRepository<Todo> {
     request.onerror = console.error;
 
     request.onsuccess = (e) => {
+      request.result.onversionchange = (event) => {
+        request.result.close();
+      };
       this.db$.next(request.result); // get initialized db
       this.db$.complete();
     };
