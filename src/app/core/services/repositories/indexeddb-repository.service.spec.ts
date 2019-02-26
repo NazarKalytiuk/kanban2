@@ -2,7 +2,6 @@ import { TestBed } from '@angular/core/testing';
 
 import { IndexeddbRepositoryService } from './indexeddb-repository.service';
 import { Todo } from '@core/model';
-import { concat } from 'rxjs/operators';
 
 describe('IndexeddbRepositoryService', () => {
 
@@ -74,6 +73,16 @@ describe('IndexeddbRepositoryService', () => {
         expect(res).toBeUndefined();
         done();
       });
+    });
+  });
+
+  it('should get all todos from indexeddb', (done) => {
+    // Arrange
+    // Act
+    // Assert
+    service.getAll().subscribe(res => {
+      expect(res).not.toBeUndefined();
+      done();
     });
   });
 });

@@ -14,11 +14,11 @@ export class LocalStorageRepositoryService implements StorageRepository<Todo> {
    * Remove todo from localStorage
    * @param todo todo
    */
-  remove(todo: Todo): Observable<void> {
+  remove(todo: Todo): Observable<undefined> {
     let todos = this.getAllSync();
     todos = todos.filter(e => e.id !== todo.id);
     this.save(todos);
-    return of();
+    return of(undefined);
   }
 
   /**

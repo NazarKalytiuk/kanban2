@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject, Injector } from '@angular/core';
 import { of, Observable, BehaviorSubject} from 'rxjs';
 import { tap, switchMap } from 'rxjs/operators';
 
@@ -13,12 +13,12 @@ import { IndexeddbRepositoryService } from './repositories/indexeddb-repository.
 })
 export class TodoService {
 
-  private storage: StorageRepository<Todo>;
-  private todos: Todo[];
+  storage: StorageRepository<Todo>;
+  private todos: Todo[] = [];
   private todos$: BehaviorSubject<Todo[]> = new BehaviorSubject(null);
 
-  constructor(storage: IndexeddbRepositoryService) {
-    this.storage = storage;
+  constructor(private injector: Injector) {
+    this.storage = this.injector.get(IndexeddbRepositoryService);
   }
 
   /**

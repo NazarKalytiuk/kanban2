@@ -53,7 +53,9 @@ export class IndexeddbRepositoryService implements StorageRepository<Todo> {
   handleRequest(request: IDBRequest): Observable<any> {
     return Observable.create(o => {
       request.onerror = o.error;
-      request.onsuccess = (e) => o.next(request.result);
+      request.onsuccess = (e) => {
+        o.next(request.result);
+      };
     });
   }
 
@@ -93,7 +95,7 @@ export class IndexeddbRepositoryService implements StorageRepository<Todo> {
    * Delete todo from db
    * @param todo Todo
    */
-  remove(todo: Todo): Observable<void> {
+  remove(todo: Todo): Observable<undefined> {
     return this.db$.pipe(flatMap(db => {
       const request = db.transaction(this.storeName, 'readwrite').objectStore(this.storeName).delete(todo.id);
       return this.handleRequest(request);
