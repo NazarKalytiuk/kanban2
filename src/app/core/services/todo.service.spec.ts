@@ -6,7 +6,6 @@ import { Todo } from '@core/model';
 import { Observable, of } from 'rxjs';
 import { IndexeddbRepositoryService } from './repositories/indexeddb-repository.service';
 import { LocalStorageRepositoryService } from './repositories/local-storage-repository.service';
-import { concat } from 'rxjs/operators';
 
 class MockRepository implements StorageRepository<Todo> {
   private todo: Todo = {

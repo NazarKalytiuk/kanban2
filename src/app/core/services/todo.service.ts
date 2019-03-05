@@ -6,8 +6,6 @@ import { Todo } from '@core/model';
 import { StorageRepository } from './repositories/storage-repository';
 import { IndexeddbRepositoryService } from './repositories/indexeddb-repository.service';
 
-
-
 @Injectable({
   providedIn: 'root'
 })
