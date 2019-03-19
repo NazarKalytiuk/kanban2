@@ -22,7 +22,6 @@ function initLocalStorageMock() {
 }
 
 describe('LocalStorageRepositoryService', () => {
-
   let service: LocalStorageRepositoryService = null;
   let destroyed$: Subject<boolean> = null;
 
