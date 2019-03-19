@@ -10,10 +10,8 @@ import { IndexeddbRepositoryService } from './repositories/indexeddb-repository.
   providedIn: 'root'
 })
 export class TodoService {
-
-  storage: StorageRepository<Todo>;
-  private todos: Todo[] = [];
-  private todos$: BehaviorSubject<Todo[]> = new BehaviorSubject(null);
+  private storage: StorageRepository<Todo>;
+  private todos$: BehaviorSubject<Todo[]> = new BehaviorSubject([]);
 
   constructor(private injector: Injector) {
     this.storage = this.injector.get(IndexeddbRepositoryService);
@@ -25,8 +23,7 @@ export class TodoService {
   getAll(): Observable<any> {
     return this.storage.getAll().pipe(
       tap(e => {
-        this.todos = e;
-        this.todos$.next(this.todos);
+        this.todos$.next(e);
       }),
       switchMap(e => this.todos$)
     );
@@ -39,8 +36,7 @@ export class TodoService {
   add(todo: Todo): Observable<Todo> {
     return this.storage.add(todo).pipe(
       tap(e => {
-        this.todos.push(e);
-        this.todos$.next(this.todos);
+        this.todos$.next([...this.todos$.value, e]);
       })
     );
   }
@@ -52,9 +48,9 @@ export class TodoService {
   edit(todo: Todo): Observable<Todo> {
     return this.storage.edit(todo).pipe(
       tap(s => {
-        const index = this.todos.findIndex(e => e.id === todo.id);
-        this.todos[index] = todo;
-        this.todos$.next(this.todos);
+        const index = this.todos$.value.findIndex(e => e.id === todo.id);
+        this.todos$.value[index] = todo;
+        this.todos$.next(this.todos$.value);
       })
     );
   }
@@ -65,8 +61,8 @@ export class TodoService {
   remove(todo: Todo): Observable<void> {
     return this.storage.remove(todo).pipe(
       tap(s => {
-        this.todos = this.todos.filter(e => e.id !== todo.id);
-        this.todos$.next(this.todos);
+        const todos = this.todos$.value.filter(e => e.id !== todo.id);
+        this.todos$.next(todos);
       })
     );
   }
@@ -76,8 +72,8 @@ export class TodoService {
    * @param id todo`s id
    */
   get(id: number): Observable<Todo> {
-    if (this.todos.length > 0) {
-      return of(this.todos.find(e => e.id === id));
+    if (this.todos$.value.length > 0) {
+      return of(this.todos$.value.find(e => e.id === id));
     } else {
       return this.storage.get(id);
     }
