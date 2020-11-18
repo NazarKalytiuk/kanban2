@@ -33,6 +33,7 @@ export class TodoAppComponent implements OnInit, OnDestroy {
   }
 
   onTodoChanged(event: TodoEvent) {
+    console.log(event.todo);
     if (event.event === 'Edited') {
       this.todoS.edit(event.todo).pipe(takeUntil(this.destroyed$)).subscribe(null);
     } if (event.event === 'Removed') {
