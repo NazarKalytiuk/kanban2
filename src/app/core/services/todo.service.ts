@@ -1,10 +1,9 @@
-import { Injectable, Inject, Injector } from '@angular/core';
-import { of, Observable, BehaviorSubject} from 'rxjs';
-import { tap, switchMap } from 'rxjs/operators';
-
+import { Injectable, Injector } from '@angular/core';
 import { Todo } from '@core/model';
-import { StorageRepository } from './repositories/storage-repository';
+import { BehaviorSubject, Observable, of } from 'rxjs';
+import { switchMap, tap } from 'rxjs/operators';
 import { IndexeddbRepositoryService } from './repositories/indexeddb-repository.service';
+import { StorageRepository } from './repositories/storage-repository';
 
 @Injectable({
   providedIn: 'root'

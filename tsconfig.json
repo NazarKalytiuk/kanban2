@@ -15,12 +15,12 @@
       "node_modules/@types"
     ],
     "paths": {
-      "@core": ["./app/core/index"],
-      "@core/model": ["./app/core/model/index"],
-      "@core/services": ["./app/core/services/index"],
-      "@shared": ["./app/shared/index"],
-      "@todo": ["./app/todo/index"],
-      "@todo/*": ["./app/todo/*"],
+      "@core": ["app/core/index"],
+      "@core/model": ["app/core/model/index"],
+      "@core/services": ["app/core/services/index"],
+      "@shared": ["app/shared/index"],
+      "@todo": ["app/todo/index"],
+      "@todo/*": ["app/todo/*"],
     },
     "lib": [
       "es2018",

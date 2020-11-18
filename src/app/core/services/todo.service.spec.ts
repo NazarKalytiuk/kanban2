@@ -1,12 +1,11 @@
 import { TestBed } from '@angular/core/testing';
-
-import { TodoService } from './todo.service';
-import { StorageRepository } from './repositories/storage-repository';
 import { Todo } from '@core/model';
 import { Observable, of, Subject } from 'rxjs';
+import { flatMap, takeUntil } from 'rxjs/operators';
 import { IndexeddbRepositoryService } from './repositories/indexeddb-repository.service';
 import { LocalStorageRepositoryService } from './repositories/local-storage-repository.service';
-import { flatMap, takeUntil } from 'rxjs/operators';
+import { StorageRepository } from './repositories/storage-repository';
+import { TodoService } from './todo.service';
 
 class MockRepository implements StorageRepository<Todo> {
   store: Todo[] = [];
